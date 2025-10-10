@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marketplace Explorer ALC - Edición Libre</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-sA+e2myLt1sE0Xk0j75HGe0pZ/5m1+LBzH7P3yt+3Do=" crossorigin="">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-o9N1j7kPHe0GI21G4C1j9mPRbXufYF1F2z9f2z8aJj4=" crossorigin="" defer></script>
+  <script src="app.js" type="module" defer></script>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__overlay"></div>
+    <div class="hero__content container">
+      <p class="hero__eyebrow">Versión libre y reproducible</p>
+      <h1>Marketplace Explorer ALC (LACME)</h1>
+      <p class="hero__lead">Explorador interactivo del comercio digital y los servicios basados en conocimiento en América Latina y el Caribe.</p>
+      <a class="hero__cta" href="#explorador">Explorar datos</a>
+    </div>
+  </header>
+
+  <nav class="global-nav" id="explorador">
+    <div class="container global-nav__container">
+      <div class="global-nav__title">Panel de análisis</div>
+      <ul class="global-nav__links">
+        <li><a href="#panorama">Panorama general</a></li>
+        <li><a href="#dinamica">Dinámica comercial</a></li>
+        <li><a href="#sectores">Sectores</a></li>
+        <li><a href="#territorio">Mapa regional</a></li>
+        <li><a href="#perfiles">Perfiles país</a></li>
+        <li><a href="#metodologia">Metodología</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section id="panorama" class="section">
+      <div class="container">
+        <div class="section__header">
+          <h2>Panorama general</h2>
+          <p>Indicadores regionales destacados del ecosistema digital de América Latina y el Caribe.</p>
+        </div>
+        <div class="cards-grid" id="summaryCards"></div>
+        <div class="context-panel">
+          <div>
+            <h3>Fuente abierta</h3>
+            <p>Datos de referencia elaborados con estadísticas públicas y estimaciones demostrativas inspiradas en LACME. Todos los elementos son reproducibles con tecnologías de código abierto.</p>
+          </div>
+          <div class="context-panel__year">
+            <label for="focusYear">Selecciona un año de análisis</label>
+            <input type="range" id="focusYear" min="2018" max="2023" value="2023">
+            <span id="focusYearValue">2023</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dinamica" class="section section--alt">
+      <div class="container">
+        <div class="section__header">
+          <h2>Dinámica comercial digital</h2>
+          <p>Seguimiento anual de exportaciones, importaciones y acuerdos de inversión en servicios digitales.</p>
+        </div>
+        <div class="chart-card">
+          <canvas id="tradeTrendChart" aria-label="Serie de exportaciones e importaciones digitales" role="img"></canvas>
+        </div>
+        <div class="insight">
+          <h3>Claves de interpretación</h3>
+          <ul>
+            <li><strong>Crecimiento sostenido:</strong> las exportaciones de servicios digitales crecieron más de 60% entre 2018 y 2023.</li>
+            <li><strong>Resiliencia:</strong> el ecosistema recuperó dinamismo tras 2020, con acuerdos de inversión que superan niveles prepandemia.</li>
+            <li><strong>Brechas estructurales:</strong> la balanza comercial continúa negativa, lo que sugiere oportunidades para fortalecer capacidades locales.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="sectores" class="section">
+      <div class="container">
+        <div class="section__header">
+          <h2>Especialización sectorial</h2>
+          <p>Participación de los sectores intensivos en conocimiento dentro del comercio digital de la región.</p>
+        </div>
+        <div class="split-grid">
+          <div class="chart-card">
+            <h3>Participación sectorial (% exportaciones 2023)</h3>
+            <canvas id="sectorShareChart" aria-label="Participación sectorial" role="img"></canvas>
+          </div>
+          <div class="chart-card">
+            <h3>Intensidad de conocimiento y valor agregado</h3>
+            <canvas id="knowledgeIntensityChart" aria-label="Relación entre valor agregado e intensidad de conocimiento" role="img"></canvas>
+          </div>
+        </div>
+        <div class="narrative">
+          <p>Las firmas de <strong>servicios de TI</strong> y <strong>servicios empresariales</strong> concentran más de la mitad de las exportaciones digitales regionales. Los segmentos de <em>fintech</em> y <em>software como servicio</em> lideran la innovación, mientras que los contenidos creativos siguen escalando gracias a la economía de plataformas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="territorio" class="section section--alt">
+      <div class="container">
+        <div class="section__header">
+          <h2>Mapa regional de capacidades</h2>
+          <p>Distribución geográfica de exportaciones digitales, tamaño del talento tecnológico y dinamismo emprendedor.</p>
+        </div>
+        <div class="map-panel">
+          <div id="lacMap" role="img" aria-label="Mapa de América Latina y el Caribe"></div>
+          <aside class="map-panel__sidebar">
+            <h3 id="countryName">Selecciona un país</h3>
+            <dl class="stat-list">
+              <div>
+                <dt>Exportaciones digitales</dt>
+                <dd id="countryExports">—</dd>
+              </div>
+              <div>
+                <dt>Startups escalables</dt>
+                <dd id="countryStartups">—</dd>
+              </div>
+              <div>
+                <dt>Enfoque estratégico</dt>
+                <dd id="countryHighlight">—</dd>
+              </div>
+            </dl>
+            <p class="map-note">Los círculos indican el volumen relativo de exportaciones digitales. Selecciona un país para ver más detalles.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="perfiles" class="section">
+      <div class="container">
+        <div class="section__header">
+          <h2>Perfiles país</h2>
+          <p>Comparativo de mercados con mayor proyección en el ecosistema digital regional.</p>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <caption>Indicadores sintéticos de comercio digital (2023)</caption>
+            <thead>
+              <tr>
+                <th>País</th>
+                <th>Exportaciones digitales (miles de millones USD)</th>
+                <th>Crecimiento anual</th>
+                <th>Acuerdos de inversión</th>
+                <th>Talento tecnológico (miles)</th>
+              </tr>
+            </thead>
+            <tbody id="countryTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="metodologia" class="section section--alt">
+      <div class="container">
+        <div class="section__header">
+          <h2>Metodología abierta</h2>
+        </div>
+        <div class="methodology">
+          <article>
+            <h3>Fuentes de datos</h3>
+            <p>El panel integra estadísticas oficiales de comercio de servicios, directorios de startups, estudios sectoriales y estimaciones propias elaboradas para fines demostrativos.</p>
+          </article>
+          <article>
+            <h3>Proceso reproducible</h3>
+            <ol>
+              <li>Integración de series históricas en formato CSV o JSON.</li>
+              <li>Transformación y limpieza de datos con herramientas libres (Python, R o SQL).</li>
+              <li>Visualización interactiva con bibliotecas web abiertas (Chart.js, Leaflet, D3).</li>
+            </ol>
+          </article>
+          <article>
+            <h3>Próximos pasos</h3>
+            <p>Esta versión libre sirve como base para ampliar módulos, incorporar datos oficiales actualizados y desplegar el panel en infraestructura propia o en la nube.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__content">
+      <p>Marketplace Explorer ALC · Plataforma libre demostrativa inspirada en el LACME original.</p>
+      <p><a href="https://www.cepal.org/es/notas/marketplace-explorer-america-latina-caribe-lacme" target="_blank" rel="noopener">Nota informativa CEPAL</a> · Construido con tecnologías abiertas.</p>
+    </div>
+  </footer>
+</body>
+</html>
